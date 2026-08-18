@@ -144,7 +144,7 @@
 
 # 1 Є list:
 
-list = [22, 3, 5, 2, 8, 2, -23, 8, 23, 5]
+# list = [22, 3, 5, 2, 8, 2, -23, 8, 23, 5]
 
 # – знайти мін. число
 
@@ -156,18 +156,21 @@ list = [22, 3, 5, 2, 8, 2, -23, 8, 23, 5]
 
 # – замінити кожне 4-те значення на ‘X’
 
+list = [22, 3, 5, 2, 8, 2, -23, 8, 23, 5]
+
+# list_copy = ["X" if (i + 1) % 4 == 0 else val for i, val in enumerate(list)]
+
 list_copy = list.copy()
-# list_copy[3::4] = ["X"] * len(list_copy[3::4])
+
+# for i, val in enumerate(list):
+#     if (i + 1) % 4 == 0:
+#         list_copy[i] = "X"
+
+list_copy[3::4] = ["NEW"] * len(list_copy[3::4])
 
 # for i in range(3, len(list_copy), 4):
 #     list_copy[i] = "X"
-# print(list_copy)
 
-for i, val in enumerate(list_copy):
-    if (i + 1) % 4 == 0:
-        list_copy[i] = "X"
-
-# list_copy = ["X" if (i + 1) % 4 == 0 else value for i, value in enumerate(list)]
 print(list_copy)
 
 # 2. вивести на екран пустий квадрат з “\*”, сторона якого вказана як аргумент функції
