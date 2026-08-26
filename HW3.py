@@ -59,11 +59,76 @@ class Rectangle:
         return (self.x + self.y) * 2
 
 
-rect1 = Rectangle(3, 7)
-rect2 = Rectangle(5, 8)
+# rect1 = Rectangle(3, 7)
+# rect2 = Rectangle(5, 8)
 
-print("Сума площ: ", rect1 + rect2)
-print("Різниця площ: ", rect1 - rect2)
-print("Порівняння площі: ", rect1 != rect2)
-print("Чи один квадрат більший за інший: ", rect1 > rect2)
-print("Периметр квадрату: ", len(rect1))
+# print("Сума площ: ", rect1 + rect2)
+# print("Різниця площ: ", rect1 - rect2)
+# print("Порівняння площі: ", rect1 != rect2)
+# print("Чи один квадрат більший за інший: ", rect1 > rect2)
+# print("Периметр квадрату: ", len(rect1))
+
+
+# створити клас Human (name, age)
+
+# створити два класи Prince и Cinderella, які наслідуються від Human:
+
+# у попелюшки має бути ім’я, вік, розмір ноги
+
+# у принца має бути ім’я, вік, та розмір знайденого черевичка, а також метод, котрий буде приймати список попелюшок, та шукати ту саму
+
+# в класі попелюшки має бути count, який буде зберігати кількість створених екземплярів класу
+
+# також має бути метод класу, який буде виводити це значення
+
+
+class Human:
+    def __init__(self, name: str, age: int) -> None:
+        self.name = name
+        self.age = age
+
+
+class Cinderella(Human):
+    count = 0
+
+    def __init__(self, name: str, age: int, foot_size: int) -> None:
+        super().__init__(name, age)
+        self.foot_size = foot_size
+
+        Cinderella.count += 1
+
+    @classmethod
+    def get_count(cls) -> int:
+        return cls.count
+
+
+class Prince(Human):
+    def __init__(self, name: str, age: int, shoe_size: int) -> None:
+        super().__init__(name, age)
+        self.shoe_size = shoe_size
+
+    def find_cinderella(self, cinderellas: list[Cinderella]) -> list[Cinderella]:
+        return [c for c in cinderellas if c.foot_size == self.shoe_size]
+
+
+# print(Cinderella.get_count())
+
+cinderellas = [
+    Cinderella("Avrora", 99, 34),
+    Cinderella("Merry", 18, 45),
+    Cinderella("Petro", 19, 38),
+    Cinderella("Oksanf", 28, 27),
+    Cinderella("Nastya", 58, 34),
+]
+
+# print(Cinderella.get_count())
+
+prince = Prince("Pedro", 45, 37)
+
+results = prince.find_cinderella(cinderellas)
+
+if results:
+    for result in results:
+        print(f"Ім'я: {result.name}, вік: {result.age}")
+else:
+    print("not found")
