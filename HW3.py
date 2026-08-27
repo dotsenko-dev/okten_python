@@ -82,33 +82,33 @@ class Rectangle:
 # також має бути метод класу, який буде виводити це значення
 
 
-# class Human:
-#     def __init__(self, name: str, age: int) -> None:
-#         self.name = name
-#         self.age = age
+class Human:
+    def __init__(self, name: str, age: int) -> None:
+        self.name = name
+        self.age = age
 
 
-# class Cinderella(Human):
-#     count = 0
+class Cinderella(Human):
+    __count = 0
 
-#     def __init__(self, name: str, age: int, foot_size: int) -> None:
-#         super().__init__(name, age)
-#         self.foot_size = foot_size
+    def __init__(self, name: str, age: int, foot_size: int) -> None:
+        super().__init__(name, age)
+        self.foot_size = foot_size
 
-#         Cinderella.count += 1
+        Cinderella.__count += 1
 
-#     @classmethod
-#     def get_count(cls) -> int:
-#         return cls.count
+    @classmethod
+    def get_count(cls) -> int:
+        return cls.__count
 
 
-# class Prince(Human):
-#     def __init__(self, name: str, age: int, shoe_size: int) -> None:
-#         super().__init__(name, age)
-#         self.shoe_size = shoe_size
+class Prince(Human):
+    def __init__(self, name: str, age: int, shoe_size: int) -> None:
+        super().__init__(name, age)
+        self.shoe_size = shoe_size
 
-#     def find_cinderella(self, cinderellas: list[Cinderella]) -> list[Cinderella]:
-#         return [c for c in cinderellas if c.foot_size == self.shoe_size]
+    def find_cinderella(self, cinderellas: list[Cinderella]) -> list[Cinderella]:
+        return [c for c in cinderellas if c.foot_size == self.shoe_size]
 
 
 # # print(Cinderella.get_count())
