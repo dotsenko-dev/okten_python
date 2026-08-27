@@ -204,7 +204,7 @@ class Magazine(Printable):
 
 
 class Main:
-    printable_list: ClassVar[list[Book | Magazine]] = []
+    __printable_list: ClassVar[list[Book | Magazine]] = []
 
     def __init__(self) -> None:
         raise TypeError("Main is static")
@@ -212,17 +212,17 @@ class Main:
     @classmethod
     def add(cls, item: object) -> None:
         if isinstance(item, (Book, Magazine)):
-            cls.printable_list.append(item)
+            cls.__printable_list.append(item)
 
     @classmethod
     def show_all_magazines(cls) -> None:
-        for item in cls.printable_list:
+        for item in cls.__printable_list:
             if isinstance(item, Magazine):
                 item.print()
 
     @classmethod
     def show_all_books(cls) -> None:
-        [item.print() for item in cls.printable_list if isinstance(item, Book)]
+        [item.print() for item in cls.__printable_list if isinstance(item, Book)]
 
 
 Main.add(Magazine("Magazine1"))
