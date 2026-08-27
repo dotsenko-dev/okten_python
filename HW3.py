@@ -204,7 +204,7 @@ class Magazine(Printable):
 
 
 class Main:
-    __printable_list: ClassVar[list[Book | Magazine]] = []
+    __printable_list: ClassVar[list[Printable]] = []
 
     def __init__(self) -> None:
         raise TypeError("Main is static")
