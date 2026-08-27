@@ -26,9 +26,9 @@
 
 створити два класи Prince и Cinderella, які наслідуються від Human:
 
-у попелюшки має бути ім’я, вік, розмір ноги
+у попелюшки має бути ім'я, вік, розмір ноги
 
-у принца має бути ім’я, вік, та розмір знайденого черевичка, а також метод, котрий буде приймати список попелюшок, та шукати ту саму
+у принца має бути ім'я, вік, та розмір знайденого черевичка, а також метод, котрий буде приймати список попелюшок, та шукати ту саму
 
 в класі попелюшки має бути count, який буде зберігати кількість створених екземплярів класу
 
@@ -52,27 +52,27 @@
 
 Приклад:
 
-Main.add(Magazine(‘Magazine1’))
+Main.add(Magazine('Magazine1'))
 
-    Main.add(Book(‘Book1’))
+    Main.add(Book('Book1'))
 
-    Main.add(Magazine(‘Magazine3’))
+    Main.add(Magazine('Magazine3'))
 
-    Main.add(Magazine(‘Magazine2’))
+    Main.add(Magazine('Magazine2'))
 
-    Main.add(Book(‘Book2’))
+    Main.add(Book('Book2'))
 
 
 
     Main.show_all_magazines()
 
-    print(‘-‘ * 40)
+    print('-' * 40)
 
     Main.show_all_books()
 
 для перевірки класів використовуємо метод isinstance, приклад:
 
-user = User(‘Max’, 15)
+user = User('Max', 15)
 
 shape = Shape()
 

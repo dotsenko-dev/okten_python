@@ -73,9 +73,9 @@ class Rectangle:
 
 # створити два класи Prince и Cinderella, які наслідуються від Human:
 
-# у попелюшки має бути ім’я, вік, розмір ноги
+# у попелюшки має бути ім'я, вік, розмір ноги
 
-# у принца має бути ім’я, вік, та розмір знайденого черевичка, а також метод, котрий буде приймати список попелюшок, та шукати ту саму
+# у принца має бути ім'я, вік, та розмір знайденого черевичка, а також метод, котрий буде приймати список попелюшок, та шукати ту саму
 
 # в класі попелюшки має бути count, який буде зберігати кількість створених екземплярів класу
 
@@ -136,16 +136,55 @@ class Rectangle:
 
 # 1. Створити абстрактний клас Printable, який буде описувати абстрактний метод print()
 
+# 2. Створити класи Book та Magazine, в кожного в конструкторі змінна name, та який наслідується від класу Printable
+
+# 3. Створити клас Main, в якому буде:
+
+# – змінна класу printable_list, яка буде зберігати книжки та журнали
+
+# – метод add, за допомогою якого можна додавати екземпляри класів в список і робити перевірку, чи то, що передають, є класом Book або Magazine інакше ігнорувати додавання
+
+# – метод show_all_magazines, який буде виводити всі журнали, викликаючи метод print абстрактного класу
+
+# – метод show_all_books, який буде виводити всі книги, викликаючи метод print абстрактного класу
+
+# Приклад:
+
+# Main.add(Magazine('Magazine1'))
+
+#     Main.add(Book('Book1'))
+
+#     Main.add(Magazine('Magazine3'))
+
+#     Main.add(Magazine('Magazine2'))
+
+#     Main.add(Book('Book2'))
+
+
+#     Main.show_all_magazines()
+
+#     print('-' * 40)
+
+#     Main.show_all_books()
+
+# для перевірки класів використовуємо метод isinstance, приклад:
+
+# user = User('Max', 15)
+
+# shape = Shape()
+
+# isinstance(max, User) -> True
+
+# isinstance(shape, User) -> False
+
 from abc import ABC, abstractmethod
+from typing import ClassVar
 
 
 class Printable(ABC):
     @abstractmethod
     def print(self) -> None:
         pass
-
-
-# 2. Створити класи Book та Magazine, в кожного в конструкторі змінна name, та який наслідується від класу Printable
 
 
 class Book(Printable):
@@ -162,19 +201,6 @@ class Magazine(Printable):
 
     def print(self) -> None:
         print(f"Magazine: {self.name}")
-
-
-# 3. Створити клас Main, в якому буде:
-
-# – змінна класу printable_list, яка буде зберігати книжки та журнали
-
-# – метод add, за допомогою якого можна додавати екземпляри класів в список і робити перевірку, чи то, що передають, є класом Book або Magazine інакше ігнорувати додавання
-
-# – метод show_all_magazines, який буде виводити всі журнали, викликаючи метод print абстрактного класу
-
-# – метод show_all_books, який буде виводити всі книги, викликаючи метод print абстрактного класу
-
-from typing import ClassVar
 
 
 class Main:
@@ -199,52 +225,19 @@ class Main:
         [item.print() for item in cls.printable_list if isinstance(item, Book)]
 
 
-Book("Book3")
+Main.add(Magazine("Magazine1"))
+
 Main.add(Book("Book1"))
-book2 = Book("Book2")
-Main.add(Book("Book3"))
+
+Main.add(Magazine("Magazine3"))
+
+Main.add(Magazine("Magazine2"))
+
 Main.add(Book("Book2"))
 
-Main.show_all_books()
-print("-" * 40)
-
-Main.add(Magazine("Magazine1"))
-Magazine("Magazine1")
-Magazine("Magazine2")
-Main.add(Magazine("Magazine2"))
 
 Main.show_all_magazines()
 
+print("-" * 40)
 
-# main = Main()
-# print(main)
-
-
-# Приклад:
-
-# Main.add(Magazine(‘Magazine1’))
-
-#     Main.add(Book(‘Book1’))
-
-#     Main.add(Magazine(‘Magazine3’))
-
-#     Main.add(Magazine(‘Magazine2’))
-
-#     Main.add(Book(‘Book2’))
-
-
-#     Main.show_all_magazines()
-
-#     print(‘-‘ * 40)
-
-#     Main.show_all_books()
-
-# для перевірки класів використовуємо метод isinstance, приклад:
-
-# user = User(‘Max’, 15)
-
-# shape = Shape()
-
-# isinstance(max, User) -> True
-
-# isinstance(shape, User) -> False
+Main.show_all_books()
