@@ -82,53 +82,169 @@ class Rectangle:
 # також має бути метод класу, який буде виводити це значення
 
 
-class Human:
-    def __init__(self, name: str, age: int) -> None:
+# class Human:
+#     def __init__(self, name: str, age: int) -> None:
+#         self.name = name
+#         self.age = age
+
+
+# class Cinderella(Human):
+#     count = 0
+
+#     def __init__(self, name: str, age: int, foot_size: int) -> None:
+#         super().__init__(name, age)
+#         self.foot_size = foot_size
+
+#         Cinderella.count += 1
+
+#     @classmethod
+#     def get_count(cls) -> int:
+#         return cls.count
+
+
+# class Prince(Human):
+#     def __init__(self, name: str, age: int, shoe_size: int) -> None:
+#         super().__init__(name, age)
+#         self.shoe_size = shoe_size
+
+#     def find_cinderella(self, cinderellas: list[Cinderella]) -> list[Cinderella]:
+#         return [c for c in cinderellas if c.foot_size == self.shoe_size]
+
+
+# # print(Cinderella.get_count())
+
+# cinderellas = [
+#     Cinderella("Avrora", 99, 34),
+#     Cinderella("Merry", 18, 45),
+#     Cinderella("Petro", 19, 38),
+#     Cinderella("Oksanf", 28, 27),
+#     Cinderella("Nastya", 58, 34),
+# ]
+
+# # print(Cinderella.get_count())
+
+# prince = Prince("Pedro", 45, 37)
+
+# results = prince.find_cinderella(cinderellas)
+
+# if results:
+#     for result in results:
+#         print(f"Ім'я: {result.name}, вік: {result.age}")
+# else:
+#     print("not found")
+
+
+# 1. Створити абстрактний клас Printable, який буде описувати абстрактний метод print()
+
+from abc import ABC, abstractmethod
+
+
+class Printable(ABC):
+    @abstractmethod
+    def print(self) -> None:
+        pass
+
+
+# 2. Створити класи Book та Magazine, в кожного в конструкторі змінна name, та який наслідується від класу Printable
+
+
+class Book(Printable):
+    def __init__(self, name: str) -> None:
         self.name = name
-        self.age = age
+
+    def print(self) -> None:
+        print(f"Book: {self.name}")
 
 
-class Cinderella(Human):
-    count = 0
+class Magazine(Printable):
+    def __init__(self, name: str) -> None:
+        self.name = name
 
-    def __init__(self, name: str, age: int, foot_size: int) -> None:
-        super().__init__(name, age)
-        self.foot_size = foot_size
+    def print(self) -> None:
+        print(f"Magazine: {self.name}")
 
-        Cinderella.count += 1
+
+# 3. Створити клас Main, в якому буде:
+
+# – змінна класу printable_list, яка буде зберігати книжки та журнали
+
+# – метод add, за допомогою якого можна додавати екземпляри класів в список і робити перевірку, чи то, що передають, є класом Book або Magazine інакше ігнорувати додавання
+
+# – метод show_all_magazines, який буде виводити всі журнали, викликаючи метод print абстрактного класу
+
+# – метод show_all_books, який буде виводити всі книги, викликаючи метод print абстрактного класу
+
+from typing import ClassVar
+
+
+class Main:
+    printable_list: ClassVar[list[Book | Magazine]] = []
+
+    def __init__(self) -> None:
+        raise TypeError("Main is static")
 
     @classmethod
-    def get_count(cls) -> int:
-        return cls.count
+    def add(cls, item: object) -> None:
+        if isinstance(item, (Book, Magazine)):
+            cls.printable_list.append(item)
+
+    @classmethod
+    def show_all_magazines(cls) -> None:
+        for item in cls.printable_list:
+            if isinstance(item, Magazine):
+                item.print()
+
+    @classmethod
+    def show_all_books(cls) -> None:
+        [item.print() for item in cls.printable_list if isinstance(item, Book)]
 
 
-class Prince(Human):
-    def __init__(self, name: str, age: int, shoe_size: int) -> None:
-        super().__init__(name, age)
-        self.shoe_size = shoe_size
+Book("Book3")
+Main.add(Book("Book1"))
+book2 = Book("Book2")
+Main.add(Book("Book3"))
+Main.add(Book("Book2"))
 
-    def find_cinderella(self, cinderellas: list[Cinderella]) -> list[Cinderella]:
-        return [c for c in cinderellas if c.foot_size == self.shoe_size]
+Main.show_all_books()
+print("-" * 40)
+
+Main.add(Magazine("Magazine1"))
+Magazine("Magazine1")
+Magazine("Magazine2")
+Main.add(Magazine("Magazine2"))
+
+Main.show_all_magazines()
 
 
-# print(Cinderella.get_count())
+# main = Main()
+# print(main)
 
-cinderellas = [
-    Cinderella("Avrora", 99, 34),
-    Cinderella("Merry", 18, 45),
-    Cinderella("Petro", 19, 38),
-    Cinderella("Oksanf", 28, 27),
-    Cinderella("Nastya", 58, 34),
-]
 
-# print(Cinderella.get_count())
+# Приклад:
 
-prince = Prince("Pedro", 45, 37)
+# Main.add(Magazine(‘Magazine1’))
 
-results = prince.find_cinderella(cinderellas)
+#     Main.add(Book(‘Book1’))
 
-if results:
-    for result in results:
-        print(f"Ім'я: {result.name}, вік: {result.age}")
-else:
-    print("not found")
+#     Main.add(Magazine(‘Magazine3’))
+
+#     Main.add(Magazine(‘Magazine2’))
+
+#     Main.add(Book(‘Book2’))
+
+
+#     Main.show_all_magazines()
+
+#     print(‘-‘ * 40)
+
+#     Main.show_all_books()
+
+# для перевірки класів використовуємо метод isinstance, приклад:
+
+# user = User(‘Max’, 15)
+
+# shape = Shape()
+
+# isinstance(max, User) -> True
+
+# isinstance(shape, User) -> False
