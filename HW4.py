@@ -8,59 +8,44 @@ f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4 admin@ukr.net
 1234567890abcdef1234567890abcdef student_2024@gmail.com
 """
 
-
 try:
-    with open("email.txt", mode="w") as file:
+    with open("email.txt", "w") as file:
         file.write(raw_data.strip())
 except Exception as e:
-    print(f"Помилка створення початкового файлу: {e}")
+    print(f"Fehler: {e}")
 
 
 # try:
 #     with (
-#         open("email.txt", mode="r") as file_in,
-#         open("gmail.txt", mode="w") as file_out,
+#         open("email.txt", "r") as file_in,
+#         open("gmail_only.txt", "w") as file_out,
 #     ):
 #         for line in file_in:
 #             parts = line.strip().split()
-#             email = parts[1].lower()
-#             if email.endswith("gmail.com"):
-#                 file_out.write(email + "\n")
-# except Exception as e:
-#     print(f"Помилка при обробці файлу: {e}")
-
-# from collections.abc import Generator
-
-
-# def gmail_only_gen(file_path: str) -> Generator[str, None, None]:
-#     with open(file_path, mode="r") as file:
-#         for line in file:
-#             parts = line.strip().split()
 #             if len(parts) == 2 and parts[1].lower().endswith("gmail.com"):
-#                 yield parts[1]
-
-
-# try:
-#     with open("gmail_only.txt", mode="w") as file_out:
-#         file_out.writelines(f"{email}\n" for email in gmail_only_gen("email.txt"))
-#         # for email in gmail_only_gen("email.txt"):
-#         #     file_out.write(f"{email}\n")
-#         print("alles gut")
+#                 file_out.write(parts[1] + "\n")
 # except Exception as e:
-#     print(f"Помилка: {e}")
+#     print(f"Fehler: {e}")
+
+
+from collections.abc import Iterator
+
+
+def gen_gmail_only(file_path: str) -> Iterator[str]:
+    with open(file_path, "r") as file_in:
+        for line in file_in:
+            match line.strip().split():
+                case [_, email] if email.lower().endswith("gmail.com"):
+                    yield email
+                case _:
+                    pass
+            # parts = line.strip().split()
+            # if len(parts) == 2 and parts[1].lower().endswith("gmail.com"):
+            #     yield parts[1]
 
 
 try:
-    with (
-        open("email.txt", "r") as file_in,
-        open("gmail.txt", "w") as file_out,
-    ):
-        for line in file_in:
-            match line.strip().split():
-                case [hash, email] if email.lower().endswith("gmail.com"):
-                    file_out.write(email + "\n")
-                case _:
-                    pass
-    print("alles gut")
+    with open("gmail_only.txt", "w") as file_out:
+        file_out.writelines(f"{email}\n" for email in gen_gmail_only("email.txt"))
 except Exception as e:
     print(f"Fehler: {e}")
