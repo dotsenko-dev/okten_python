@@ -1,3 +1,6 @@
+# ruff: noqa: BLE001
+from collections.abc import Iterator
+
 raw_data = """
 9d3dc7094d3dcb31ffe2960ad891dd04 34hrap@gmail.com
 ec4f2883e9eb74770d02b30f06659a5f tele_nat@mail.i
@@ -12,23 +15,7 @@ try:
     with open("email.txt", "w") as file:
         file.write(raw_data.strip())
 except Exception as e:
-    print(f"Fehler: {e}")
-
-
-# try:
-#     with (
-#         open("email.txt", "r") as file_in,
-#         open("gmail_only.txt", "w") as file_out,
-#     ):
-#         for line in file_in:
-#             parts = line.strip().split()
-#             if len(parts) == 2 and parts[1].lower().endswith("gmail.com"):
-#                 file_out.write(parts[1] + "\n")
-# except Exception as e:
-#     print(f"Fehler: {e}")
-
-
-from collections.abc import Iterator
+    print(f"{e}")
 
 
 def gen_gmail_only(file_path: str) -> Iterator[str]:
@@ -39,13 +26,10 @@ def gen_gmail_only(file_path: str) -> Iterator[str]:
                     yield email
                 case _:
                     pass
-            # parts = line.strip().split()
-            # if len(parts) == 2 and parts[1].lower().endswith("gmail.com"):
-            #     yield parts[1]
 
 
 try:
     with open("gmail_only.txt", "w") as file_out:
         file_out.writelines(f"{email}\n" for email in gen_gmail_only("email.txt"))
 except Exception as e:
-    print(f"Fehler: {e}")
+    print(f"{e}")
